@@ -1,4 +1,5 @@
 ﻿using DxLibDLL;
+using System;
 
 public struct InputState {
     public bool Left;
@@ -8,6 +9,10 @@ public struct InputState {
 
 static class Game {
     public static readonly int GROUND_Y = 300;
+
+    static readonly int TIMER_INTERVAL = 16;
+
+    static int _timer;
 
     static Player _player = new Player();
     static InputState _currentInput = new InputState();
@@ -19,9 +24,14 @@ static class Game {
     };
 
     public static void Run() {
+        _timer = DX.GetNowCount();
+
         while (DX.ProcessMessage() == 0) {
             Update();
             Render();
+
+            _timer += TIMER_INTERVAL;
+            DX.WaitTimer(Math.Max(1, _timer - DX.GetNowCount()));
         }
     }
 
