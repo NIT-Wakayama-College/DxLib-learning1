@@ -33,6 +33,8 @@ static class Game {
     public static void Render() {
         DX.ClearDrawScreen();
 
+        Ground.Render();
+
         _player.Render();
 
         DX.ScreenFlip();
@@ -40,6 +42,7 @@ static class Game {
 }
 
 static class Program {
+    public static readonly uint COLOR_RED = DX.GetColor(255, 0, 0);
     public static readonly uint COLOR_WHITE = DX.GetColor(255, 255, 255);
 
     static void Main(string[] args) {
