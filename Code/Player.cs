@@ -22,8 +22,8 @@
     }
 
     void ApplyGravity() {
-        _playerY += _gravity;
         _gravity += GRAVITY_INCREMENT;
+        _playerY += _gravity;
 
         if (_playerY > Game.GROUND_Y) {
             _playerY = Game.GROUND_Y;
