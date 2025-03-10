@@ -18,6 +18,12 @@ static class Game {
         Jump = DX.CheckHitKey(DX.KEY_INPUT_SPACE) == 1
     };
 
+    public static void Run() {
+        while (DX.ProcessMessage() == 0) {
+            Update();
+            Render();
+        }
+    }
 
     public static void Update() {
         _currentInput = GetCurrentInput();
@@ -31,28 +37,21 @@ static class Game {
 
         DX.ScreenFlip();
     }
-
-    public static void Run() {
-        while (DX.ProcessMessage() == 0) {
-            Update();
-            Render();
-        }
-    }
 }
 
 static class Program {
     public static readonly uint COLOR_WHITE = DX.GetColor(255, 255, 255);
 
-    static void Init() {
-        DX.ChangeWindowMode(DX.TRUE);
-        DX.DxLib_Init();
-        DX.SetDrawScreen(DX.DX_SCREEN_BACK);
-    }
-
     static void Main(string[] args) {
         Init();
         Game.Run();
         DX.DxLib_End();
+    }
+
+    static void Init() {
+        DX.ChangeWindowMode(DX.TRUE);
+        DX.DxLib_Init();
+        DX.SetDrawScreen(DX.DX_SCREEN_BACK);
     }
 
     public static void DrawBox(int posX, int posY, int sizeX, int sizeY, uint color) =>
