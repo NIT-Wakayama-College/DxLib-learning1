@@ -2,12 +2,15 @@
 
 static class Game {
     public static void Run() {
-        // 画面をクリア
-        DX.ClearDrawScreen();
-        // 文字を描画
-        DX.DrawString(100, 100, "Hello World", DX.GetColor(255, 255, 255));
-        // 裏画面の内容を表画面に反映
-        DX.ScreenFlip();
+        // メインループ
+        while (DX.ProcessMessage() == 0) {
+            // 画面をクリア
+            DX.ClearDrawScreen();
+            // 文字を描画
+            DX.DrawString(100, 100, "Hello World", DX.GetColor(255, 255, 255));
+            // 裏画面の内容を表画面に反映
+            DX.ScreenFlip();
+        }
     }
 }
 
@@ -24,10 +27,7 @@ static class Program {
     static void Main(string[] args) {
         Init();
 
-        // メインループ
-        while (DX.ProcessMessage() == 0) {
-            Game.Run();
-        }
+        Game.Run();
 
         // Dxlib の終了処理
         DX.DxLib_End();
