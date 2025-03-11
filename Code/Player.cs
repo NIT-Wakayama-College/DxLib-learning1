@@ -1,9 +1,10 @@
 ﻿using System.Numerics;
 
 class Player {
-    const int SPEED = 3;
-    const int SIZE = 32;
-    const int JUMP_FORCE = -20;
+    const int PLAYER_SIZE = 32;
+
+    const int PLAYER_SPEED = 3;
+    const int JUMP_POWER = -20;
     const int GRAVITY_INCREMENT = 1;
 
     int _gravity = 0;
@@ -12,8 +13,8 @@ class Player {
     Vector2 _position = new Vector2(100f, 100f);
     Vector2 _movement = new Vector2(0f, 0f);
 
-    public Vector2 ImagePos1 => new Vector2(_position.X - (SIZE / 2), _position.Y - (SIZE / 2));
-    public Vector2 ImagePos2 => new Vector2(_position.X + (SIZE / 2), _position.Y + (SIZE / 2));
+    public Vector2 ImagePos1 => new Vector2(_position.X - (PLAYER_SIZE / 2), _position.Y - (PLAYER_SIZE / 2));
+    public Vector2 ImagePos2 => new Vector2(_position.X + (PLAYER_SIZE / 2), _position.Y + (PLAYER_SIZE / 2));
 
     public Vector2 HitboxPos1 => new Vector2(ImagePos1.X + 1f, ImagePos1.X + 1f);
     public Vector2 HitboxPos2 => new Vector2(ImagePos1.X - 1f, ImagePos1.X - 1f);
@@ -29,12 +30,12 @@ class Player {
     void HandleInput(InputState input) {
         _movement.X = 0;
 
-        if (input.Left) _movement.X -= SPEED;
-        if (input.Right) _movement.X += SPEED;
+        if (input.Left) _movement.X -= PLAYER_SPEED;
+        if (input.Right) _movement.X += PLAYER_SPEED;
 
         if (input.Jump && !_isJumping) {
             _isJumping = true;
-            _gravity = JUMP_FORCE;
+            _gravity = JUMP_POWER;
         }
     }
 
@@ -45,8 +46,8 @@ class Player {
 
     void ApplyMovement() {
         Vector2 newPos = new Vector2 {
-            X = Ground.CheckCollisionHorizontal(_position, _movement.X, SIZE),
-            Y = Ground.CheckCollisionVertical(_position, _movement.Y, SIZE, ref _gravity, ref _isJumping)
+            X = Ground.CheckCollisionHorizontal(_position, _movement.X, PLAYER_SIZE),
+            Y = Ground.CheckCollisionVertical(_position, _movement.Y, PLAYER_SIZE, ref _gravity, ref _isJumping)
         };
 
         _position = newPos;
@@ -55,6 +56,6 @@ class Player {
     #endregion Update
 
     public void Render() {
-        Program.DrawBox((int)ImagePos1.X, (int)ImagePos1.Y, SIZE, SIZE, Program.COLOR_WHITE);
+        Program.DrawBox((int)ImagePos1.X, (int)ImagePos1.Y, PLAYER_SIZE, PLAYER_SIZE, Program.COLOR_WHITE);
     }
 }
