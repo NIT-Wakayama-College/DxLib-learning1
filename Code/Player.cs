@@ -12,8 +12,8 @@ class Player {
     public Vector2 ImagePos1 => new Vector2(_position.X - (PLAYER_SIZE / 2), _position.Y - (PLAYER_SIZE / 2));
     public Vector2 ImagePos2 => new Vector2(_position.X + (PLAYER_SIZE / 2), _position.Y + (PLAYER_SIZE / 2));
 
-    public Vector2 HitboxPos1 => new Vector2(ImagePos1.X + 1f, ImagePos1.X + 1f);
-    public Vector2 HitboxPos2 => new Vector2(ImagePos1.X - 1f, ImagePos1.X - 1f);
+    public Vector2 HitboxPos1 => new Vector2(ImagePos1.X + 1f, ImagePos1.Y + 1f);
+    public Vector2 HitboxPos2 => new Vector2(ImagePos2.X - 1f, ImagePos2.Y - 1f);
 
     #region Update
 
