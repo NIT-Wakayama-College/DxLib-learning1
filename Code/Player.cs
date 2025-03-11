@@ -9,18 +9,18 @@
     const int JUMP_FORCE = -20;
     const int GRAVITY_INCREMENT = 1;
 
-    private static int _positionCenterX = 100;
-    private static int _positionCenterY = 100;
+    int _positionCenterX = 100;
+    int _positionCenterY = 100;
 
-    public static int ImagePosX1 => _positionCenterX - (SIZE / 2);
-    public static int ImagePosX2 => _positionCenterX + (SIZE / 2);
-    public static int ImagePosY1 => _positionCenterY - (SIZE / 2);
-    public static int ImagePosY2 => _positionCenterY + (SIZE / 2);
+    public int ImagePosX1 => _positionCenterX - (SIZE / 2);
+    public int ImagePosX2 => _positionCenterX + (SIZE / 2);
+    public int ImagePosY1 => _positionCenterY - (SIZE / 2);
+    public int ImagePosY2 => _positionCenterY + (SIZE / 2);
 
-    public static int HitboxPosX1 => ImagePosX1 + 1;
-    public static int HitboxPosX2 => ImagePosX2 - 1;
-    public static int HitboxPosY1 => ImagePosY1 + 1;
-    public static int HitboxPosY2 => ImagePosY2 - 1;
+    public int HitboxPosX1 => ImagePosX1 + 1;
+    public int HitboxPosX2 => ImagePosX2 - 1;
+    public int HitboxPosY1 => ImagePosY1 + 1;
+    public int HitboxPosY2 => ImagePosY2 - 1;
 
     #region Update
 
