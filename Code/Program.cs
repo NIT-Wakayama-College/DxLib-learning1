@@ -8,8 +8,6 @@ public struct InputState {
 }
 
 static class Game {
-    public static readonly int GROUND_Y = 300;
-
     static readonly int TIMER_INTERVAL = 16;
 
     static int _timer;
