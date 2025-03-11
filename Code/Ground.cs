@@ -1,4 +1,7 @@
-﻿static class Ground {
+﻿using System;
+using System.Numerics;
+
+static class Ground {
     const int CHIP_SIZE = 64;
 
     const int MAP_WIDTH = 10;
@@ -25,47 +28,47 @@
         }
     }
 
-    public static int CheckCollisionHorizontal(int x, int y, int dx, int size) {
-        int left = x - size / 2 + dx;
-        int right = x + size / 2 + dx;
+    public static float CheckCollisionHorizontal(Vector2 pos, float dx, int size) {
+        float left = pos.X - size / 2 + dx;
+        float right = pos.X + size / 2 + dx;
 
         if (dx < 0) {
-            if (IsWall(left, y))
-                return (left / CHIP_SIZE + 1) * CHIP_SIZE + size / 2;
+            if (IsWall(new Vector2(left, pos.Y)))
+                return (float)(Math.Ceiling(left / CHIP_SIZE) * CHIP_SIZE + size / 2);
         } else if (dx > 0) {
-            if (IsWall(right, y))
-                return (right / CHIP_SIZE) * CHIP_SIZE - size / 2;
+            if (IsWall(new Vector2(right, pos.Y)))
+                return (float)(Math.Floor(right / CHIP_SIZE) * CHIP_SIZE - size / 2);
         }
-        return x + dx;
+        return pos.X + dx;
     }
 
-    public static int CheckCollisionVertical(int x, int y, int dy, int size, ref int _gravity, ref bool _isJumping) {
-        int bottom = y + size / 2 + dy;
-        int top = y - size / 2 + dy;
+    public static float CheckCollisionVertical(Vector2 pos, float dy, int size, ref int _gravity, ref bool _isJumping) {
+        float bottom = pos.Y + size / 2 + dy;
+        float top = pos.Y - size / 2 + dy;
 
         if (dy < 0) {
-            if (IsWall(x, top))
-                return (top / CHIP_SIZE + 1) * CHIP_SIZE + size / 2;
+            if (IsWall(new Vector2(pos.X, top)))
+                return (float)(Math.Ceiling(top / CHIP_SIZE) * CHIP_SIZE + size / 2);
         } else if (dy > 0) {
-            if (IsWall(x, bottom)) {
+            if (IsWall(new Vector2(pos.X, bottom))) {
                 _gravity = 0;
                 _isJumping = false;
-                return (bottom / CHIP_SIZE) * CHIP_SIZE - size / 2;
+                return (float)(Math.Floor(bottom / CHIP_SIZE) * CHIP_SIZE - size / 2);
             }
         }
-        return y + dy;
+        return pos.Y + dy;
     }
 
-    public static bool IsWall(int x, int y) {
-        return GetChipParam(x, y) != 1;
+    public static bool IsWall(Vector2 pos) {
+        return GetChipParam(pos) != 1;
     }
 
-    public static int GetChipParam(int x, int y) {
-        if (x < 0 || x >= Program.SCREEN_X) return 0;
-        if (y < 0 || y >= Program.SCREEN_Y) return 0;
+    public static int GetChipParam(Vector2 pos) {
+        if (pos.X < 0f || pos.X >= Program.SCREEN_X) return 0;
+        if (pos.Y < 0f || pos.Y >= Program.SCREEN_Y) return 0;
 
-        int gridX = x / CHIP_SIZE;
-        int gridY = y / CHIP_SIZE;
+        int gridX = (int)(pos.X / CHIP_SIZE);
+        int gridY = (int)(pos.Y / CHIP_SIZE);
 
         return MapData[gridY, gridX];
     }
