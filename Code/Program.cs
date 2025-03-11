@@ -8,7 +8,7 @@ public struct InputState {
 }
 
 static class Game {
-    static readonly int TIMER_INTERVAL = 16;
+    const int TIMER_INTERVAL = 16;
 
     static int _timer;
 
@@ -50,7 +50,7 @@ static class Game {
 }
 
 static class Program {
-    public static readonly int SCREEN_X = 640, SCREEN_Y = 480;
+    public const int SCREEN_X = 640, SCREEN_Y = 480;
 
     public static readonly uint COLOR_RED = DX.GetColor(255, 0, 0);
     public static readonly uint COLOR_WHITE = DX.GetColor(255, 255, 255);
