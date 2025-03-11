@@ -57,7 +57,7 @@ static class Program {
     public static readonly uint COLOR_RED = DX.GetColor(255, 0, 0);
     public static readonly uint COLOR_WHITE = DX.GetColor(255, 255, 255);
 
-    static void Main(string[] args) {
+    static void Main() {
         Init();
         Game.Run();
         DX.DxLib_End();
