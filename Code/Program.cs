@@ -1,15 +1,46 @@
 ﻿using DxLibDLL;
 using System;
 
+using static Constants;
+
 public struct InputState {
     public bool Left;
     public bool Right;
     public bool Jump;
 }
 
-static class Game {
-    const int TIMER_INTERVAL = 16;
+class Constants {
+    public const int SCREEN_WIDTH = 640;
+    public const int SCREEN_HEIGHT = 480;
 
+    public const int TIMER_INTERVAL = 16;
+
+    public const int CHIP_SIZE = 64;
+    public const int MAP_WIDTH = 10;
+    public const int MAP_HEIGHT = 8;
+
+    public const int PLAYER_SIZE = 32;
+
+    public const int PLAYER_SPEED = 3;
+    public const int JUMP_POWER = -20;
+    public const int GRAVITY_INCREMENT = 1;
+
+    public static readonly uint COLOR_RED = DX.GetColor(255, 0, 0);
+    public static readonly uint COLOR_WHITE = DX.GetColor(255, 255, 255);
+
+    public static readonly int[,] MAP_DATA = new int[MAP_HEIGHT, MAP_WIDTH]{
+        { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 } ,
+        { 1, 1, 0, 0, 0, 0, 0, 0, 0, 1 } ,
+        { 1, 1, 0, 1, 1, 1, 1, 1, 1, 1 } ,
+        { 1, 1, 0, 1, 1, 0, 0, 0, 1, 1 } ,
+        { 1, 1, 1, 1, 1, 0, 0, 0, 1, 1 } ,
+        { 1, 1, 0, 1, 0, 0, 0, 0, 1, 1 } ,
+        { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } ,
+        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+    };
+}
+
+static class Game {
     static int _timer;
 
     static Player _player = new Player();
@@ -50,11 +81,6 @@ static class Game {
 }
 
 static class Program {
-    public const int SCREEN_WIDTH = 640, SCREEN_HEIGHT = 480;
-
-    public static readonly uint COLOR_RED = DX.GetColor(255, 0, 0);
-    public static readonly uint COLOR_WHITE = DX.GetColor(255, 255, 255);
-
     static void Main() {
         Init();
         Game.Run();

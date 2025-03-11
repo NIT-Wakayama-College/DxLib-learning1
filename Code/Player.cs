@@ -1,12 +1,8 @@
 ﻿using System.Numerics;
 
+using static Constants;
+
 class Player {
-    const int PLAYER_SIZE = 32;
-
-    const int PLAYER_SPEED = 3;
-    const int JUMP_POWER = -20;
-    const int GRAVITY_INCREMENT = 1;
-
     int _gravity = 0;
     bool _isJumping = false;
 
@@ -56,6 +52,6 @@ class Player {
     #endregion Update
 
     public void Render() {
-        Program.DrawBox((int)ImagePos1.X, (int)ImagePos1.Y, PLAYER_SIZE, PLAYER_SIZE, Program.COLOR_WHITE);
+        Program.DrawBox((int)ImagePos1.X, (int)ImagePos1.Y, PLAYER_SIZE, PLAYER_SIZE, COLOR_WHITE);
     }
 }
