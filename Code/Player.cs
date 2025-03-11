@@ -1,21 +1,19 @@
 ﻿class Player {
-    int _movementX = 0, _movementY = 0;
-    int _gravity = 0;
-
-    bool _isJumping = false;
-
     const int SPEED = 3;
     const int SIZE = 32;
     const int JUMP_FORCE = -20;
     const int GRAVITY_INCREMENT = 1;
 
-    int _positionCenterX = 100;
-    int _positionCenterY = 100;
+    int _gravity = 0;
+    bool _isJumping = false;
 
-    public int ImagePosX1 => _positionCenterX - (SIZE / 2);
-    public int ImagePosX2 => _positionCenterX + (SIZE / 2);
-    public int ImagePosY1 => _positionCenterY - (SIZE / 2);
-    public int ImagePosY2 => _positionCenterY + (SIZE / 2);
+    int _positionX = 100, _positionY = 100;
+    int _movementX = 0, _movementY = 0;
+
+    public int ImagePosX1 => _positionX - (SIZE / 2);
+    public int ImagePosX2 => _positionX + (SIZE / 2);
+    public int ImagePosY1 => _positionY - (SIZE / 2);
+    public int ImagePosY2 => _positionY + (SIZE / 2);
 
     public int HitboxPosX1 => ImagePosX1 + 1;
     public int HitboxPosX2 => ImagePosX2 - 1;
@@ -49,11 +47,11 @@
     }
 
     void ApplyMovement() {
-        int newPosX = Ground.CheckCollisionHorizontal(_positionCenterX, _positionCenterY, _movementX, SIZE);
-        int newPosY = Ground.CheckCollisionVertical(_positionCenterX, _positionCenterY, _movementY, SIZE, ref _gravity, ref _isJumping);
+        int newPosX = Ground.CheckCollisionHorizontal(_positionX, _positionY, _movementX, SIZE);
+        int newPosY = Ground.CheckCollisionVertical(_positionX, _positionY, _movementY, SIZE, ref _gravity, ref _isJumping);
 
-        _positionCenterX = newPosX;
-        _positionCenterY = newPosY;
+        _positionX = newPosX;
+        _positionY = newPosY;
     }
 
     #endregion Update

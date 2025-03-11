@@ -60,13 +60,13 @@
         return GetChipParam(x, y) != 1;
     }
 
-    public static int GetChipParam(float x, float y) {
+    public static int GetChipParam(int x, int y) {
         if (x < 0 || x >= Program.SCREEN_X) return 0;
         if (y < 0 || y >= Program.SCREEN_Y) return 0;
 
-        int gridX = (int)(x / CHIP_SIZE);
-        int gridY = (int)(y / CHIP_SIZE);
+        int gridX = x / CHIP_SIZE;
+        int gridY = y / CHIP_SIZE;
 
-        return Ground.MapData[gridY, gridX];
+        return MapData[gridY, gridX];
     }
 }
