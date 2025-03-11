@@ -40,17 +40,17 @@
     }
 
     public static int CheckCollisionVertical(int x, int y, int dy, int size, ref int _gravity, ref bool _isJumping) {
-        int bottom = y + size / 2;
-        int top = y - size / 2;
+        int bottom = y + size / 2 + dy;
+        int top = y - size / 2 + dy;
 
         if (dy < 0) {
-            if (IsWall(x, top + dy))
-                return ((top + dy) / CHIP_SIZE + 1) * CHIP_SIZE + size / 2;
+            if (IsWall(x, top))
+                return (top / CHIP_SIZE + 1) * CHIP_SIZE + size / 2;
         } else if (dy > 0) {
-            if (IsWall(x, bottom + dy)) {
+            if (IsWall(x, bottom)) {
                 _gravity = 0;
                 _isJumping = false;
-                return (bottom + dy) / CHIP_SIZE * CHIP_SIZE - size / 2;
+                return (bottom / CHIP_SIZE) * CHIP_SIZE - size / 2;
             }
         }
         return y + dy;
