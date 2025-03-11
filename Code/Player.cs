@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 using static Constants;
 
@@ -42,12 +43,53 @@ class Player {
 
     void ApplyMovement() {
         Vector2 newPos = new Vector2 {
-            X = Ground.CheckCollisionHorizontal(_position, _movement.X, PLAYER_SIZE),
-            Y = Ground.CheckCollisionVertical(_position, _movement.Y, PLAYER_SIZE, ref _gravity, ref _isJumping)
+            X = CheckCollisionHorizontal(),
+            Y = CheckCollisionVertical()
         };
 
         _position = newPos;
     }
+
+    public float CheckCollisionHorizontal() {
+        float left = HitboxPos1.X + _movement.X;
+        float right = HitboxPos2.X + _movement.X;
+
+        float top = HitboxPos1.Y;
+        float bottom = HitboxPos2.Y;
+
+        if (_movement.X < 0) {
+            if (IsWall(new Vector2(left, top)) || IsWall(new Vector2(left, bottom)))
+                return (float)(Math.Ceiling(left / CHIP_SIZE) * CHIP_SIZE + PLAYER_SIZE / 2);
+        } else if (_movement.X > 0) {
+            if (IsWall(new Vector2(right, top)) || IsWall(new Vector2(right, bottom)))
+                return (float)(Math.Floor(right / CHIP_SIZE) * CHIP_SIZE - PLAYER_SIZE / 2);
+        }
+        return _position.X + _movement.X;
+    }
+
+    public float CheckCollisionVertical() {
+        float left = HitboxPos1.X;
+        float right = HitboxPos2.X;
+
+        float top = HitboxPos1.Y + _movement.Y;
+        float bottom = HitboxPos2.Y + _movement.Y;
+
+        if (_movement.Y < 0) {
+            if (IsWall(new Vector2(left, top)) || IsWall(new Vector2(right, top))) {
+                _gravity = 0;
+                return (float)(Math.Ceiling(top / CHIP_SIZE) * CHIP_SIZE + PLAYER_SIZE / 2);
+            }
+        } else if (_movement.Y > 0) {
+            if (IsWall(new Vector2(left, bottom)) || IsWall(new Vector2(right, bottom))) {
+                _gravity = 0;
+                _isJumping = false;
+                return (float)(Math.Floor(bottom / CHIP_SIZE) * CHIP_SIZE - PLAYER_SIZE / 2);
+            }
+        }
+        return _position.Y + _movement.Y;
+    }
+
+    bool IsWall(Vector2 pos) => Ground.IsWall(pos);
 
     #endregion Update
 

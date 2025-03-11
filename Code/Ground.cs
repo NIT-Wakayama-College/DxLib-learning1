@@ -1,5 +1,4 @@
-﻿using System;
-using System.Numerics;
+﻿using System.Numerics;
 
 using static Constants;
 
@@ -12,37 +11,6 @@ static class Ground {
                 }
             }
         }
-    }
-
-    public static float CheckCollisionHorizontal(Vector2 pos, float dx, int size) {
-        float left = pos.X - size / 2 + dx;
-        float right = pos.X + size / 2 + dx;
-
-        if (dx < 0) {
-            if (IsWall(new Vector2(left, pos.Y)))
-                return (float)(Math.Ceiling(left / CHIP_SIZE) * CHIP_SIZE + size / 2);
-        } else if (dx > 0) {
-            if (IsWall(new Vector2(right, pos.Y)))
-                return (float)(Math.Floor(right / CHIP_SIZE) * CHIP_SIZE - size / 2);
-        }
-        return pos.X + dx;
-    }
-
-    public static float CheckCollisionVertical(Vector2 pos, float dy, int size, ref int _gravity, ref bool _isJumping) {
-        float top = pos.Y - size / 2 + dy;
-        float bottom = pos.Y + size / 2 + dy;
-
-        if (dy < 0) {
-            if (IsWall(new Vector2(pos.X, top)))
-                return (float)(Math.Ceiling(top / CHIP_SIZE) * CHIP_SIZE + size / 2);
-        } else if (dy > 0) {
-            if (IsWall(new Vector2(pos.X, bottom))) {
-                _gravity = 0;
-                _isJumping = false;
-                return (float)(Math.Floor(bottom / CHIP_SIZE) * CHIP_SIZE - size / 2);
-            }
-        }
-        return pos.Y + dy;
     }
 
     public static bool IsWall(Vector2 pos) {
