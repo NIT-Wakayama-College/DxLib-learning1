@@ -43,8 +43,8 @@ static class Ground {
     }
 
     public static float CheckCollisionVertical(Vector2 pos, float dy, int size, ref int _gravity, ref bool _isJumping) {
-        float bottom = pos.Y + size / 2 + dy;
         float top = pos.Y - size / 2 + dy;
+        float bottom = pos.Y + size / 2 + dy;
 
         if (dy < 0) {
             if (IsWall(new Vector2(pos.X, top)))
