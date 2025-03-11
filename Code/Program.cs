@@ -3,7 +3,7 @@ using System;
 
 using static Constants;
 
-public struct InputState {
+struct InputState {
     public bool Left;
     public bool Right;
     public bool Jump;
@@ -46,7 +46,7 @@ static class Game {
     static Player _player = new Player();
     static InputState _currentInput = new InputState();
 
-    private static InputState GetCurrentInput() => new InputState {
+    static InputState GetCurrentInput() => new InputState {
         Left = DX.CheckHitKey(DX.KEY_INPUT_LEFT) == 1,
         Right = DX.CheckHitKey(DX.KEY_INPUT_RIGHT) == 1,
         Jump = DX.CheckHitKey(DX.KEY_INPUT_SPACE) == 1
@@ -64,12 +64,12 @@ static class Game {
         }
     }
 
-    public static void Update() {
+    static void Update() {
         _currentInput = GetCurrentInput();
         _player.Update(_currentInput);
     }
 
-    public static void Render() {
+    static void Render() {
         DX.ClearDrawScreen();
 
         Ground.Render();

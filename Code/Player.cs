@@ -10,11 +10,11 @@ class Player {
     Vector2 _position = new Vector2(100f, 100f);
     Vector2 _movement = new Vector2(0f, 0f);
 
-    public Vector2 ImagePos1 => new Vector2(_position.X - (PLAYER_SIZE / 2), _position.Y - (PLAYER_SIZE / 2));
-    public Vector2 ImagePos2 => new Vector2(_position.X + (PLAYER_SIZE / 2), _position.Y + (PLAYER_SIZE / 2));
+    Vector2 ImagePos1 => new Vector2(_position.X - (PLAYER_SIZE / 2), _position.Y - (PLAYER_SIZE / 2));
+    Vector2 ImagePos2 => new Vector2(_position.X + (PLAYER_SIZE / 2), _position.Y + (PLAYER_SIZE / 2));
 
-    public Vector2 HitboxPos1 => new Vector2(ImagePos1.X + 1f, ImagePos1.Y + 1f);
-    public Vector2 HitboxPos2 => new Vector2(ImagePos2.X - 1f, ImagePos2.Y - 1f);
+    Vector2 HitboxPos1 => new Vector2(ImagePos1.X + 1f, ImagePos1.Y + 1f);
+    Vector2 HitboxPos2 => new Vector2(ImagePos2.X - 1f, ImagePos2.Y - 1f);
 
     #region Update
 
@@ -50,7 +50,7 @@ class Player {
         _position = newPos;
     }
 
-    public float CheckCollisionHorizontal() {
+    float CheckCollisionHorizontal() {
         float left = HitboxPos1.X + _movement.X;
         float right = HitboxPos2.X + _movement.X;
 
@@ -67,7 +67,7 @@ class Player {
         return _position.X + _movement.X;
     }
 
-    public float CheckCollisionVertical() {
+    float CheckCollisionVertical() {
         float left = HitboxPos1.X;
         float right = HitboxPos2.X;
 
