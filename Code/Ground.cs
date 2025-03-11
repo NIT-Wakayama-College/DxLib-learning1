@@ -49,7 +49,7 @@ static class Ground {
         return GetChipParam(pos) != 1;
     }
 
-    public static int GetChipParam(Vector2 pos) {
+    static int GetChipParam(Vector2 pos) {
         if (pos.X < 0f || pos.X >= SCREEN_WIDTH) return 0;
         if (pos.Y < 0f || pos.Y >= SCREEN_HEIGHT) return 0;
 
