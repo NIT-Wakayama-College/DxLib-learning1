@@ -33,7 +33,7 @@
             if (IsWall(left, y))
                 return (left / CHIP_SIZE + 1) * CHIP_SIZE + size / 2;
         } else if (dx > 0) {
-            if (IsWall(right + dx, y))
+            if (IsWall(right, y))
                 return (right / CHIP_SIZE) * CHIP_SIZE - size / 2;
         }
         return x + dx;
