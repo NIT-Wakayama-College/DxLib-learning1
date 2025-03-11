@@ -24,4 +24,49 @@
             }
         }
     }
+
+    public static int CheckCollisionHorizontal(int x, int y, int dx, int size) {
+        int left = x - size / 2 + dx;
+        int right = x + size / 2 + dx;
+
+        if (dx < 0) {
+            if (IsWall(left, y))
+                return (left / CHIP_SIZE + 1) * CHIP_SIZE + size / 2;
+        } else if (dx > 0) {
+            if (IsWall(right + dx, y))
+                return (right / CHIP_SIZE) * CHIP_SIZE - size / 2;
+        }
+        return x + dx;
+    }
+
+    public static int CheckCollisionVertical(int x, int y, int dy, int size, ref int _gravity, ref bool _isJumping) {
+        int bottom = y + size / 2;
+        int top = y - size / 2;
+
+        if (dy > 0) {
+            if (IsWall(x, bottom + dy)) {
+                _gravity = 0;
+                _isJumping = false;
+                return (bottom + dy) / CHIP_SIZE * CHIP_SIZE - size / 2;
+            }
+        } else if (dy < 0) {
+            if (IsWall(x, top + dy))
+                return ((top + dy) / CHIP_SIZE + 1) * CHIP_SIZE + size / 2;
+        }
+        return y + dy;
+    }
+
+    public static bool IsWall(int x, int y) {
+        return GetChipParam(x, y) != 1;
+    }
+
+    public static int GetChipParam(float x, float y) {
+        if (x < 0 || x >= Program.SCREEN_X) return 0;
+        if (y < 0 || y >= Program.SCREEN_Y) return 0;
+
+        int gridX = (int)(x / CHIP_SIZE);
+        int gridY = (int)(y / CHIP_SIZE);
+
+        return Ground.MapData[gridY, gridX];
+    }
 }
