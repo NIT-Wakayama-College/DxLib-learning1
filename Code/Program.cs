@@ -63,6 +63,9 @@ static class Constants {
 }
 
 static class Game {
+    public static bool IsGameOver = false;
+    public static int CameraOffsetX = 0;
+
     static int _timer;
 
     static Player _player = new Player();

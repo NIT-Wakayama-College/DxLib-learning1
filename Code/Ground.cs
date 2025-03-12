@@ -8,7 +8,7 @@ static class Ground {
             for (int j = 0; j < MAP_WIDTH; j++) {
                 int tileIndex = MAP_DATA[i][j];
                 if (tileIndex == -1) continue;
-                Program.DrawEXGraph(j * CHIP_SIZE, i * CHIP_SIZE, CHIP_SIZE, CHIP_SIZE, GROUND_IMAGES[tileIndex]);
+                Program.DrawEXGraph(j * CHIP_SIZE - Game.CameraOffsetX, i * CHIP_SIZE, CHIP_SIZE, CHIP_SIZE, GROUND_IMAGES[tileIndex]);
             }
         }
     }
@@ -21,7 +21,7 @@ static class Ground {
         if (pos.X < 0f || pos.X >= SCREEN_WIDTH) return 0;
         if (pos.Y < 0f || pos.Y >= SCREEN_HEIGHT) return 0;
 
-        int gridX = (int)(pos.X / CHIP_SIZE);
+        int gridX = (int)((pos.X + Game.CameraOffsetX) / CHIP_SIZE);
         int gridY = (int)(pos.Y / CHIP_SIZE);
 
         return MAP_DATA[gridY][gridX];

@@ -67,6 +67,11 @@ class Player {
         };
 
         _position = newPos;
+
+        if (_position.X >= SCREEN_WIDTH / 2 && _movement.X > 0) {
+            _position.X = SCREEN_WIDTH / 2;
+            Game.CameraOffsetX += (int)_movement.X;
+        }
     }
 
     float CheckCollisionHorizontal() {
@@ -78,10 +83,10 @@ class Player {
 
         if (_movement.X < 0) {
             if (IsWall(new Vector2(left, top)) || IsWall(new Vector2(left, bottom)))
-                return (float)(Math.Ceiling(left / CHIP_SIZE) * CHIP_SIZE - (HitboxPos1.X - _position.X) + 1);
+                return (float)(Math.Ceiling(left / CHIP_SIZE) * CHIP_SIZE - (HitboxPos1.X - _position.X) - Game.CameraOffsetX % CHIP_SIZE + 1);
         } else if (_movement.X > 0) {
             if (IsWall(new Vector2(right, top)) || IsWall(new Vector2(right, bottom)))
-                return (float)(Math.Floor(right / CHIP_SIZE) * CHIP_SIZE - (HitboxPos2.X - _position.X) - 1);
+                return (float)(Math.Ceiling(right / CHIP_SIZE) * CHIP_SIZE - (HitboxPos2.X - _position.X) - Game.CameraOffsetX % CHIP_SIZE - 1);
         }
         return _position.X + _movement.X;
     }
