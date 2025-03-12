@@ -6,15 +6,15 @@ static class Ground {
     public static void Render() {
         for (int i = 0; i < MAP_HEIGHT; i++) {
             for (int j = 0; j < MAP_WIDTH; j++) {
-                if (MAP_DATA[i, j] == 0) {
-                    Program.DrawBox(j * CHIP_SIZE, i * CHIP_SIZE, CHIP_SIZE, CHIP_SIZE, COLOR_RED);
-                }
+                int tileIndex = MAP_DATA[i][j];
+                if (tileIndex == -1) continue;
+                Program.DrawEXGraph(j * CHIP_SIZE, i * CHIP_SIZE, CHIP_SIZE, CHIP_SIZE, GROUND_IMAGES[tileIndex]);
             }
         }
     }
 
     public static bool IsWall(Vector2 pos) {
-        return GetChipParam(pos) != 1;
+        return GetChipParam(pos) != -1;
     }
 
     static int GetChipParam(Vector2 pos) {
@@ -24,6 +24,6 @@ static class Ground {
         int gridX = (int)(pos.X / CHIP_SIZE);
         int gridY = (int)(pos.Y / CHIP_SIZE);
 
-        return MAP_DATA[gridY, gridX];
+        return MAP_DATA[gridY][gridX];
     }
 }

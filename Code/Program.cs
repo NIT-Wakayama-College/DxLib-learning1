@@ -1,5 +1,7 @@
 ﻿using DxLibDLL;
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 using static Constants;
 
@@ -9,35 +11,51 @@ struct InputState {
     public bool Jump;
 }
 
-class Constants {
+static class Constants {
+    public const string ASSET_PATH = @"..\..\Assets\";
+
     public const int SCREEN_WIDTH = 640;
     public const int SCREEN_HEIGHT = 480;
 
     public const int TIMER_INTERVAL = 16;
 
-    public const int CHIP_SIZE = 64;
-    public const int MAP_WIDTH = 10;
-    public const int MAP_HEIGHT = 8;
-
+    public const int CHIP_SIZE = 32;
     public const int PLAYER_SIZE = 32;
 
     public const int PLAYER_SPEED = 3;
     public const int JUMP_POWER = -20;
     public const int GRAVITY_INCREMENT = 1;
 
-    public static readonly uint COLOR_RED = DX.GetColor(255, 0, 0);
-    public static readonly uint COLOR_WHITE = DX.GetColor(255, 255, 255);
+    public static readonly uint COLOR_RED;
+    public static readonly uint COLOR_WHITE;
 
-    public static readonly int[,] MAP_DATA = new int[MAP_HEIGHT, MAP_WIDTH]{
-        { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 } ,
-        { 1, 1, 0, 0, 0, 0, 0, 0, 0, 1 } ,
-        { 1, 1, 0, 1, 1, 1, 1, 1, 1, 1 } ,
-        { 1, 1, 0, 1, 1, 0, 0, 0, 1, 1 } ,
-        { 1, 1, 1, 1, 1, 0, 0, 0, 1, 1 } ,
-        { 1, 1, 0, 1, 0, 0, 0, 0, 1, 1 } ,
-        { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } ,
-        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-    };
+    public static readonly int MAP_WIDTH;
+    public static readonly int MAP_HEIGHT;
+
+    public static readonly int[] GROUND_IMAGES;
+    public static readonly List<List<int>> MAP_DATA;
+
+    static Constants() {
+        COLOR_RED = DX.GetColor(255, 0, 0);
+        COLOR_WHITE = DX.GetColor(255, 255, 255);
+
+        GROUND_IMAGES = Program.LoadSprites(@"tileset_ground.png", 25, 23, 16, 16);
+
+        MAP_DATA = new List<List<int>>();
+        using (StreamReader file = new StreamReader(ASSET_PATH + @"tilemap.csv")) {
+            while (!file.EndOfStream) {
+                string line = file.ReadLine();
+
+                string[] strValues = line.Split(',');
+                int[] intValues = Array.ConvertAll(strValues, int.Parse);
+
+                MAP_DATA.Add(new List<int>(intValues));
+            }
+        }
+
+        MAP_WIDTH = MAP_DATA[0].Count;
+        MAP_HEIGHT = MAP_DATA.Count;
+    }
 }
 
 static class Game {
@@ -93,6 +111,16 @@ static class Program {
         DX.SetDrawScreen(DX.DX_SCREEN_BACK);
     }
 
+    public static int[] LoadSprites(string filePath, int divX, int divY, int sizeX, int sizeY) {
+        int spriteCount = divX * divY;
+        int[] sprites = new int[spriteCount];
+        DX.LoadDivGraph(ASSET_PATH + filePath, spriteCount, divX, divY, sizeX, sizeY, sprites);
+        return sprites;
+    }
+
     public static void DrawBox(int posX, int posY, int sizeX, int sizeY, uint color) =>
         DX.DrawBox(posX, posY, posX + sizeX, posY + sizeY, color, DX.TRUE);
+
+    public static void DrawEXGraph(int posX, int posY, int sizeX, int sizeY, int GrHandle) =>
+        DX.DrawExtendGraph(posX, posY, posX + sizeX, posY + sizeY, GrHandle, DX.TRUE);
 }
