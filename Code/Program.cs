@@ -68,8 +68,8 @@ class Game {
 
     int _timer;
 
-    Player _player;
-    InputState _currentInput;
+    Player Player;
+    InputState InputState;
 
     InputState GetCurrentInput() => new InputState {
         Left = DX.CheckHitKey(DX.KEY_INPUT_LEFT) == 1,
@@ -81,8 +81,8 @@ class Game {
         IsGameOver = false;
         CameraOffsetX = 0;
 
-        _player = new Player();
-        _currentInput = new InputState();
+        Player = new Player();
+        InputState = new InputState();
     }
 
     public void Run() {
@@ -98,8 +98,8 @@ class Game {
     }
 
     void Update() {
-        _currentInput = GetCurrentInput();
-        _player.Update(_currentInput);
+        InputState = GetCurrentInput();
+        Player.Update(InputState);
     }
 
     void Render() {
@@ -107,7 +107,7 @@ class Game {
 
         Ground.Render();
 
-        _player.Render();
+        Player.Render();
 
         DX.ScreenFlip();
     }
