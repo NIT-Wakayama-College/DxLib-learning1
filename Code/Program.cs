@@ -106,7 +106,6 @@ class Game {
         DX.ClearDrawScreen();
 
         Ground.Render();
-
         Player.Render();
 
         DX.ScreenFlip();
