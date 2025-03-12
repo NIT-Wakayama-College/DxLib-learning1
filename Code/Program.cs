@@ -19,13 +19,13 @@ static class Constants {
 
     public const int TIMER_INTERVAL = 16;
 
-    public const int CHIP_SIZE = 32;
     public const int PLAYER_SIZE_X = 32;
     public const int PLAYER_SIZE_Y = 64;
-
     public const int PLAYER_SPEED = 3;
     public const int JUMP_POWER = -20;
     public const int GRAVITY_INCREMENT = 1;
+
+    public const int CHIP_SIZE = 32;
 
     public static readonly uint COLOR_RED;
     public static readonly uint COLOR_WHITE;
@@ -33,15 +33,16 @@ static class Constants {
     public static readonly int MAP_WIDTH;
     public static readonly int MAP_HEIGHT;
 
-    public static readonly int[] GROUND_IMAGES;
-    public static readonly List<List<int>> MAP_DATA;
-
     public static readonly int[] PLAYER_IMAGES;
+    public static readonly int[] GROUND_IMAGES;
+
+    public static readonly List<List<int>> MAP_DATA;
 
     static Constants() {
         COLOR_RED = DX.GetColor(255, 0, 0);
         COLOR_WHITE = DX.GetColor(255, 255, 255);
 
+        PLAYER_IMAGES = Program.LoadSprites(@"tileset_ramina.png", 3, 2, PLAYER_SIZE_X, PLAYER_SIZE_Y);
         GROUND_IMAGES = Program.LoadSprites(@"tileset_ground.png", 25, 23, 16, 16);
 
         MAP_DATA = new List<List<int>>();
@@ -58,8 +59,6 @@ static class Constants {
 
         MAP_WIDTH = MAP_DATA[0].Count;
         MAP_HEIGHT = MAP_DATA.Count;
-
-        PLAYER_IMAGES = Program.LoadSprites(@"tileset_ramina.png", 3, 2, PLAYER_SIZE_X, PLAYER_SIZE_Y);
     }
 }
 
