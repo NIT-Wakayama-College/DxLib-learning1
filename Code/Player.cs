@@ -1,5 +1,4 @@
-﻿using DxLibDLL;
-using System;
+﻿using System;
 using System.Numerics;
 
 using static Constants;
@@ -115,8 +114,5 @@ class Player {
 
     public void Render() {
         Program.DrawEXGraph((int)ImagePos1.X, (int)ImagePos1.Y, PLAYER_SIZE_X, PLAYER_SIZE_Y, PLAYER_IMAGES[_imageIndex]);
-
-        DX.DrawBox((int)HitboxPos1.X, (int)HitboxPos1.Y, (int)HitboxPos2.X, (int)HitboxPos2.Y, COLOR_WHITE, DX.FALSE);
-        DX.DrawString(100, 100, $"{(int)ImagePos1.X}, {(int)ImagePos2.Y}", COLOR_WHITE);
     }
 }
