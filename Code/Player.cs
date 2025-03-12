@@ -4,14 +4,14 @@ using System.Numerics;
 using static Constants;
 
 class Player {
-    int _gravity = 0;
-    int _imageIndex = 0;
-    int _imageIndexCount = 0;
-    bool _isJumping = false;
-    bool _isFacingRight = true;
+    int _gravity;
+    int _imageIndex;
+    int _imageIndexCount;
+    bool _isJumping;
+    bool _isFacingRight;
 
-    Vector2 _position = new Vector2(100f, 100f);
-    Vector2 _movement = new Vector2(0f, 0f);
+    Vector2 _position;
+    Vector2 _movement;
 
     Vector2 ImagePos1 => new Vector2(_position.X - (PLAYER_SIZE_X / 2), _position.Y - (PLAYER_SIZE_Y / 2));
     Vector2 ImagePos2 => new Vector2(_position.X + (PLAYER_SIZE_X / 2), _position.Y + (PLAYER_SIZE_Y / 2));
@@ -20,6 +20,17 @@ class Player {
     Vector2 HitboxPos2 => new Vector2(ImagePos2.X - 1f, ImagePos2.Y - 1f);
 
     #region Update
+
+    public Player() {
+        _gravity = 0;
+        _imageIndex = 0;
+        _imageIndexCount = 0;
+        _isJumping = false;
+        _isFacingRight = true;
+
+        _position = new Vector2(100f, 100f);
+        _movement = new Vector2(0f, 0f);
+    }
 
     public void Update(InputState input) {
         HandleInput(input);

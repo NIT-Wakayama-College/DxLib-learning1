@@ -62,22 +62,30 @@ static class Constants {
     }
 }
 
-static class Game {
-    public static bool IsGameOver = false;
-    public static int CameraOffsetX = 0;
+class Game {
+    public static bool IsGameOver;
+    public static int CameraOffsetX;
 
-    static int _timer;
+    int _timer;
 
-    static Player _player = new Player();
-    static InputState _currentInput = new InputState();
+    Player _player;
+    InputState _currentInput;
 
-    static InputState GetCurrentInput() => new InputState {
+    InputState GetCurrentInput() => new InputState {
         Left = DX.CheckHitKey(DX.KEY_INPUT_LEFT) == 1,
         Right = DX.CheckHitKey(DX.KEY_INPUT_RIGHT) == 1,
         Jump = DX.CheckHitKey(DX.KEY_INPUT_SPACE) == 1
     };
 
-    public static void Run() {
+    public Game() {
+        IsGameOver = false;
+        CameraOffsetX = 0;
+
+        _player = new Player();
+        _currentInput = new InputState();
+    }
+
+    public void Run() {
         _timer = DX.GetNowCount();
 
         while (DX.ProcessMessage() == 0) {
@@ -89,12 +97,12 @@ static class Game {
         }
     }
 
-    static void Update() {
+    void Update() {
         _currentInput = GetCurrentInput();
         _player.Update(_currentInput);
     }
 
-    static void Render() {
+    void Render() {
         DX.ClearDrawScreen();
 
         Ground.Render();
@@ -106,7 +114,10 @@ static class Game {
 }
 
 static class Program {
+    static Game Game;
+
     static void Main() {
+        Game = new Game();
         Game.Run();
         DX.DxLib_End();
     }
