@@ -20,7 +20,8 @@ static class Constants {
     public const int TIMER_INTERVAL = 16;
 
     public const int CHIP_SIZE = 32;
-    public const int PLAYER_SIZE = 32;
+    public const int PLAYER_SIZE_X = 32;
+    public const int PLAYER_SIZE_Y = 64;
 
     public const int PLAYER_SPEED = 3;
     public const int JUMP_POWER = -20;
@@ -34,6 +35,8 @@ static class Constants {
 
     public static readonly int[] GROUND_IMAGES;
     public static readonly List<List<int>> MAP_DATA;
+
+    public static readonly int[] PLAYER_IMAGES;
 
     static Constants() {
         COLOR_RED = DX.GetColor(255, 0, 0);
@@ -55,6 +58,8 @@ static class Constants {
 
         MAP_WIDTH = MAP_DATA[0].Count;
         MAP_HEIGHT = MAP_DATA.Count;
+
+        PLAYER_IMAGES = Program.LoadSprites(@"tileset_ramina.png", 3, 2, PLAYER_SIZE_X, PLAYER_SIZE_Y);
     }
 }
 
@@ -117,9 +122,6 @@ static class Program {
         DX.LoadDivGraph(ASSET_PATH + filePath, spriteCount, divX, divY, sizeX, sizeY, sprites);
         return sprites;
     }
-
-    public static void DrawBox(int posX, int posY, int sizeX, int sizeY, uint color) =>
-        DX.DrawBox(posX, posY, posX + sizeX, posY + sizeY, color, DX.TRUE);
 
     public static void DrawEXGraph(int posX, int posY, int sizeX, int sizeY, int GrHandle) =>
         DX.DrawExtendGraph(posX, posY, posX + sizeX, posY + sizeY, GrHandle, DX.TRUE);
