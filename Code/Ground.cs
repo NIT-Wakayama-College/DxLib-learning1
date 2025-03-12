@@ -19,7 +19,11 @@ static class Ground {
 
     static int GetChipParam(Vector2 pos) {
         if (pos.X < 0f || pos.X >= SCREEN_WIDTH) return 0;
-        if (pos.Y < 0f || pos.Y >= SCREEN_HEIGHT) return 0;
+        if (pos.Y < 0f) return -1;
+        if (pos.Y >= SCREEN_HEIGHT) {
+            Game.IsGameOver = true;
+            return -1;
+        }
 
         int gridX = (int)((pos.X + Game.CameraOffsetX) / CHIP_SIZE);
         int gridY = (int)(pos.Y / CHIP_SIZE);

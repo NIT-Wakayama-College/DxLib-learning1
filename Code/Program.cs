@@ -88,7 +88,7 @@ class Game {
     public void Run() {
         _timer = DX.GetNowCount();
 
-        while (DX.ProcessMessage() == 0) {
+        while (DX.ProcessMessage() == 0 && !IsGameOver) {
             Update();
             Render();
 
@@ -113,10 +113,13 @@ class Game {
 }
 
 static class Program {
-    static Game Game = new Game();
+    static Game Game;
 
     static void Main() {
-        Game.Run();
+        while (DX.ProcessMessage() == 0) {
+            Game = new Game();
+            Game.Run();
+        }
         DX.DxLib_End();
     }
 
