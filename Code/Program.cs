@@ -107,12 +107,11 @@ static class Game {
 
 static class Program {
     static void Main() {
-        Init();
         Game.Run();
         DX.DxLib_End();
     }
 
-    static void Init() {
+    static Program() {
         DX.ChangeWindowMode(DX.TRUE);
         DX.DxLib_Init();
         DX.SetDrawScreen(DX.DX_SCREEN_BACK);
