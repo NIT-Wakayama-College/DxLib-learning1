@@ -114,10 +114,9 @@ class Game {
 }
 
 static class Program {
-    static Game Game;
+    static Game Game = new Game();
 
     static void Main() {
-        Game = new Game();
         Game.Run();
         DX.DxLib_End();
     }
