@@ -19,8 +19,6 @@ class Player {
     Vector2 HitboxPos1 => new Vector2(ImagePos1.X + 1f, ImagePos1.Y + 20f);
     Vector2 HitboxPos2 => new Vector2(ImagePos2.X - 1f, ImagePos2.Y - 1f);
 
-    #region Update
-
     public Player() {
         _gravity = 0;
         _imageIndex = 0;
@@ -31,6 +29,8 @@ class Player {
         _position = new Vector2(100f, 100f);
         _movement = new Vector2(0f, 0f);
     }
+
+    #region Update
 
     public void Update(InputState input) {
         HandleInput(input);
