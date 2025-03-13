@@ -18,9 +18,9 @@ internal static class Ground {
     }
 
     private static int GetChipParam(Vector2 pos) {
-        if (pos.X < 0f || pos.X >= SCREEN_WIDTH) return 0;
-        if (pos.Y < 0f) return -1;
-        if (pos.Y >= SCREEN_HEIGHT) {
+        if (IsOutOfBounds(pos)) return 0;
+        if (IsAboveScreen(pos)) return -1;
+        if (IsBelowScreen(pos)) {
             Game.IsGameOver = true;
             return -1;
         }
@@ -29,5 +29,17 @@ internal static class Ground {
         int gridY = (int)(pos.Y / CHIP_SIZE);
 
         return MAP_DATA[gridY][gridX];
+    }
+
+    private static bool IsOutOfBounds(Vector2 pos) {
+        return pos.X < 0f || pos.X >= SCREEN_WIDTH;
+    }
+
+    private static bool IsAboveScreen(Vector2 pos) {
+        return pos.Y < 0f;
+    }
+
+    private static bool IsBelowScreen(Vector2 pos) {
+        return pos.Y >= SCREEN_HEIGHT;
     }
 }

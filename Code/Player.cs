@@ -42,13 +42,29 @@ internal class Player {
         _movement.X = 0;
 
         if (input.Left) {
-            _isFacingRight = false;
-            _movement.X -= PLAYER_SPEED;
+            MoveLeft();
         } else if (input.Right) {
-            _isFacingRight = true;
-            _movement.X += PLAYER_SPEED;
+            MoveRight();
         }
 
+        UpdateImageIndex();
+
+        if (input.Jump && !_isJumping) {
+            Jump();
+        }
+    }
+
+    private void MoveLeft() {
+        _isFacingRight = false;
+        _movement.X -= PLAYER_SPEED;
+    }
+
+    private void MoveRight() {
+        _isFacingRight = true;
+        _movement.X += PLAYER_SPEED;
+    }
+
+    private void UpdateImageIndex() {
         if (_movement.X != 0) {
             _imageIndex = _isFacingRight ? 1 : 4;
             _imageIndexCount++;
@@ -59,11 +75,11 @@ internal class Player {
         } else {
             _imageIndex = _isFacingRight ? 0 : 3;
         }
+    }
 
-        if (input.Jump && !_isJumping) {
-            _isJumping = true;
-            _gravity = JUMP_POWER;
-        }
+    private void Jump() {
+        _isJumping = true;
+        _gravity = JUMP_POWER;
     }
 
     private void ApplyGravity() {
