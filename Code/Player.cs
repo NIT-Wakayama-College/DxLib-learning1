@@ -3,21 +3,21 @@ using System.Numerics;
 
 using static Constants;
 
-class Player {
-    int _gravity;
-    int _imageIndex;
-    int _imageIndexCount;
-    bool _isJumping;
-    bool _isFacingRight;
+internal class Player {
+    private int _gravity;
+    private int _imageIndex;
+    private int _imageIndexCount;
+    private bool _isJumping;
+    private bool _isFacingRight;
 
-    Vector2 _position;
-    Vector2 _movement;
+    private Vector2 _position;
+    private Vector2 _movement;
 
-    Vector2 ImagePos1 => new Vector2(_position.X - (PLAYER_SIZE_X / 2), _position.Y - (PLAYER_SIZE_Y / 2));
-    Vector2 ImagePos2 => new Vector2(_position.X + (PLAYER_SIZE_X / 2), _position.Y + (PLAYER_SIZE_Y / 2));
+    private Vector2 ImagePos1 => new Vector2(_position.X - (PLAYER_SIZE_X / 2), _position.Y - (PLAYER_SIZE_Y / 2));
+    private Vector2 ImagePos2 => new Vector2(_position.X + (PLAYER_SIZE_X / 2), _position.Y + (PLAYER_SIZE_Y / 2));
 
-    Vector2 HitboxPos1 => new Vector2(ImagePos1.X + 1f, ImagePos1.Y + 20f);
-    Vector2 HitboxPos2 => new Vector2(ImagePos2.X - 1f, ImagePos2.Y - 1f);
+    private Vector2 HitboxPos1 => new Vector2(ImagePos1.X + 1f, ImagePos1.Y + 20f);
+    private Vector2 HitboxPos2 => new Vector2(ImagePos2.X - 1f, ImagePos2.Y - 1f);
 
     public Player() {
         _gravity = 0;
@@ -38,7 +38,7 @@ class Player {
         ApplyMovement();
     }
 
-    void HandleInput(InputState input) {
+    private void HandleInput(InputState input) {
         _movement.X = 0;
 
         if (input.Left) {
@@ -66,12 +66,12 @@ class Player {
         }
     }
 
-    void ApplyGravity() {
+    private void ApplyGravity() {
         _gravity += GRAVITY_INCREMENT;
         _movement.Y = _gravity;
     }
 
-    void ApplyMovement() {
+    private void ApplyMovement() {
         Vector2 newPos = new Vector2 {
             X = CheckCollisionHorizontal(),
             Y = CheckCollisionVertical()
@@ -85,7 +85,7 @@ class Player {
         }
     }
 
-    float CheckCollisionHorizontal() {
+    private float CheckCollisionHorizontal() {
         float left = HitboxPos1.X + _movement.X;
         float right = HitboxPos2.X + _movement.X;
 
@@ -102,7 +102,7 @@ class Player {
         return _position.X + _movement.X;
     }
 
-    float CheckCollisionVertical() {
+    private float CheckCollisionVertical() {
         float left = HitboxPos1.X;
         float right = HitboxPos2.X;
 
@@ -124,7 +124,7 @@ class Player {
         return _position.Y + _movement.Y;
     }
 
-    bool IsWall(Vector2 pos) => Ground.IsWall(pos);
+    private bool IsWall(Vector2 pos) => Ground.IsWall(pos);
 
     #endregion Update
 

@@ -2,7 +2,7 @@
 
 using static Constants;
 
-static class Ground {
+internal static class Ground {
     public static void Render() {
         for (int i = 0; i < MAP_HEIGHT; i++) {
             for (int j = 0; j < MAP_WIDTH; j++) {
@@ -17,7 +17,7 @@ static class Ground {
         return GetChipParam(pos) != -1;
     }
 
-    static int GetChipParam(Vector2 pos) {
+    private static int GetChipParam(Vector2 pos) {
         if (pos.X < 0f || pos.X >= SCREEN_WIDTH) return 0;
         if (pos.Y < 0f) return -1;
         if (pos.Y >= SCREEN_HEIGHT) {

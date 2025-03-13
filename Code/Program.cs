@@ -5,13 +5,13 @@ using System.IO;
 
 using static Constants;
 
-struct InputState {
+internal struct InputState {
     public bool Left;
     public bool Right;
     public bool Jump;
 }
 
-static class Constants {
+internal static class Constants {
     public const string ASSET_PATH = @"..\..\Assets\";
 
     public const int SCREEN_WIDTH = 640;
@@ -51,7 +51,7 @@ static class Constants {
         MAP_HEIGHT = MAP_DATA.Count;
     }
 
-    static List<List<int>> LoadMapData(string fileName) {
+    private static List<List<int>> LoadMapData(string fileName) {
         var mapData = new List<List<int>>();
         using (StreamReader file = new StreamReader(ASSET_PATH + fileName)) {
             while (!file.EndOfStream) {
@@ -65,16 +65,16 @@ static class Constants {
     }
 }
 
-class Game {
+internal class Game {
     public static bool IsGameOver;
     public static int CameraOffsetX;
 
-    int _timer;
+    private int _timer;
 
-    Player Player;
-    InputState InputState;
+    private Player Player;
+    private InputState InputState;
 
-    InputState GetCurrentInput() => new InputState {
+    private InputState GetCurrentInput() => new InputState {
         Left = DX.CheckHitKey(DX.KEY_INPUT_LEFT) == 1,
         Right = DX.CheckHitKey(DX.KEY_INPUT_RIGHT) == 1,
         Jump = DX.CheckHitKey(DX.KEY_INPUT_SPACE) == 1
@@ -100,12 +100,12 @@ class Game {
         }
     }
 
-    void Update() {
+    private void Update() {
         InputState = GetCurrentInput();
         Player.Update(InputState);
     }
 
-    void Render() {
+    private void Render() {
         DX.ClearDrawScreen();
 
         Ground.Render();
@@ -115,10 +115,10 @@ class Game {
     }
 }
 
-static class Program {
-    static Game Game;
+internal static class Program {
+    private static Game Game;
 
-    static void Main() {
+    private static void Main() {
         while (DX.ProcessMessage() == 0) {
             Game = new Game();
             Game.Run();
