@@ -45,20 +45,23 @@ static class Constants {
         PLAYER_IMAGES = Program.LoadSprites(@"tileset_ramina.png", 3, 2, PLAYER_SIZE_X, PLAYER_SIZE_Y);
         GROUND_IMAGES = Program.LoadSprites(@"tileset_ground.png", 25, 23, 16, 16);
 
-        MAP_DATA = new List<List<int>>();
-        using (StreamReader file = new StreamReader(ASSET_PATH + @"tilemap.csv")) {
-            while (!file.EndOfStream) {
-                string line = file.ReadLine();
-
-                string[] strValues = line.Split(',');
-                int[] intValues = Array.ConvertAll(strValues, int.Parse);
-
-                MAP_DATA.Add(new List<int>(intValues));
-            }
-        }
+        MAP_DATA = LoadMapData(@"tilemap.csv");
 
         MAP_WIDTH = MAP_DATA[0].Count;
         MAP_HEIGHT = MAP_DATA.Count;
+    }
+
+    static List<List<int>> LoadMapData(string fileName) {
+        var mapData = new List<List<int>>();
+        using (StreamReader file = new StreamReader(ASSET_PATH + fileName)) {
+            while (!file.EndOfStream) {
+                string line = file.ReadLine();
+                string[] strValues = line.Split(',');
+                int[] intValues = Array.ConvertAll(strValues, int.Parse);
+                mapData.Add(new List<int>(intValues));
+            }
+        }
+        return mapData;
     }
 }
 
