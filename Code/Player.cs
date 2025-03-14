@@ -3,6 +3,8 @@
 using static Constants;
 
 internal class Player {
+    public static int CameraOffsetX { get; private set; }
+
     private int _gravity;
     private int _imageIndex;
     private int _imageIndexCount;
@@ -17,7 +19,6 @@ internal class Player {
 
     private Vector2 HitboxPos1 => new Vector2(ImagePos1.X + 1f, ImagePos1.Y + 20f);
     private Vector2 HitboxPos2 => new Vector2(ImagePos2.X - 1f, ImagePos2.Y - 1f);
-
 
     public Player() {
         _gravity = 0;
@@ -62,6 +63,11 @@ internal class Player {
     private void ApplyMovement() {
         _position.X += _movement.X;
         _position.Y = CheckCollisionVertical();
+
+        if (_position.X >= SCREEN_SIZE.X / 2 && _movement.X > 0) {
+            _position.X = SCREEN_SIZE.X / 2;
+            CameraOffsetX += (int)_movement.X;
+        }
     }
 
     private float CheckCollisionVertical() {
@@ -80,7 +86,7 @@ internal class Player {
     public void Render() {
         UpdateImageIndex();
 
-        Program.DrawEXGraph((int)ImagePos1.X, (int)ImagePos1.Y, (int)PLAYER_SIZE.X, (int)PLAYER_SIZE.Y, PLAYER_IMAGES[_imageIndex]);
+        Program.DrawEXGraph((int)ImagePos1.X + CameraOffsetX, (int)ImagePos1.Y, (int)PLAYER_SIZE.X, (int)PLAYER_SIZE.Y, PLAYER_IMAGES[_imageIndex]);
     }
 
     private void UpdateImageIndex() {

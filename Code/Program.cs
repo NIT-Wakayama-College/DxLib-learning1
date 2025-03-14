@@ -23,6 +23,7 @@ internal class Program {
     }
 
     public static void DrawEXGraph(int posX, int posY, int sizeX, int sizeY, int GrHandle) {
+        posX -= Player.CameraOffsetX;
         DX.DrawExtendGraph(posX, posY, posX + sizeX, posY + sizeY, GrHandle, DX.TRUE);
     }
 }
