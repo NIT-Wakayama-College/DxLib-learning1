@@ -40,11 +40,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Constants.cs" />
     <Compile Include="Code\Game.cs" />
+    <Compile Include="Code\Player.cs" />
     <Compile Include="DxDLL.cs" />
     <Compile Include="Code\Program.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\tileset_ramina.png" />
     <Content Include="DxLib.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -56,6 +59,8 @@
     <Reference Include="DxLibDotNet">
       <HintPath>.\DxLibDotNet.dll</HintPath>
     </Reference>
+    <Reference Include="System.Numerics" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

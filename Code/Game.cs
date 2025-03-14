@@ -1,6 +1,12 @@
 ﻿using DxLibDLL;
 
 internal class Game {
+    private Player Player;
+
+    public Game() {
+        Player = new Player();
+    }
+
     public void Run() {
         while (DX.ProcessMessage() == 0) {
             Render();
@@ -9,7 +15,9 @@ internal class Game {
 
     private void Render() {
         DX.ClearDrawScreen();
-        DX.DrawString(100, 100, "Hello World", DX.GetColor(255, 255, 255));
+
+        Player.Render();
+
         DX.ScreenFlip();
     }
 }
