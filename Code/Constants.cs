@@ -3,6 +3,8 @@
 internal static class Constants {
     public const string ASSET_PATH = @"..\..\Assets\";
 
+    public const int PLAYER_SPEED = 3;
+
     public static readonly Vector2 PLAYER_SIZE;
 
     public static readonly int[] PLAYER_IMAGES;
