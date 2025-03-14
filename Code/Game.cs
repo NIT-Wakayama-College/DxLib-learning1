@@ -35,6 +35,7 @@ internal class Game {
     private void Render() {
         DX.ClearDrawScreen();
 
+        Ground.Render();
         Player.Render();
 
         DX.ScreenFlip();

@@ -38,15 +38,18 @@
   <ItemGroup>
     <None Include=".editorconfig" />
     <None Include="App.config" />
+    <None Include="Assets\tilemap.csv" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\Constants.cs" />
     <Compile Include="Code\Game.cs" />
+    <Compile Include="Code\Ground.cs" />
     <Compile Include="Code\Player.cs" />
     <Compile Include="DxDLL.cs" />
     <Compile Include="Code\Program.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\tileset_ground.png" />
     <Content Include="Assets\tileset_ramina.png" />
     <Content Include="DxLib.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
