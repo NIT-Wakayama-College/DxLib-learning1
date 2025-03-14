@@ -1,10 +1,9 @@
 ﻿using DxLibDLL;
 
 internal struct InputState {
-    public bool Up;
-    public bool Down;
     public bool Left;
     public bool Right;
+    public bool Jump;
 }
 
 internal class Game {
@@ -28,10 +27,9 @@ internal class Game {
     }
 
     private InputState GetCurrentInput() => new InputState {
-        Up = DX.CheckHitKey(DX.KEY_INPUT_UP) == 1,
-        Down = DX.CheckHitKey(DX.KEY_INPUT_DOWN) == 1,
         Left = DX.CheckHitKey(DX.KEY_INPUT_LEFT) == 1,
         Right = DX.CheckHitKey(DX.KEY_INPUT_RIGHT) == 1,
+        Jump = DX.CheckHitKey(DX.KEY_INPUT_SPACE) == 1,
     };
 
     private void Render() {
