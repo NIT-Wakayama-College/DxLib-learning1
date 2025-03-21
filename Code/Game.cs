@@ -7,15 +7,19 @@ internal struct InputState {
 }
 
 internal class Game {
+    private static bool _isGameOver;
+
     private Player Player;
     private InputState InputState;
 
     public Game() {
+        _isGameOver = false;
         Player = new Player();
+        InputState = new InputState();
     }
 
     public void Run() {
-        while (DX.ProcessMessage() == 0) {
+        while (DX.ProcessMessage() == 0 && !_isGameOver) {
             Update();
             Render();
         }
@@ -39,5 +43,9 @@ internal class Game {
         Player.Render();
 
         DX.ScreenFlip();
+    }
+
+    public static void SetGameOver() {
+        _isGameOver = true;
     }
 }
