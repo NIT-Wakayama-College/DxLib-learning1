@@ -1,26 +1,43 @@
 ﻿using DxLibDLL;
 
-class Program {
-    static void Main(string[] args) {
-        // ウィンドウモードで起動するように設定
-        DX.ChangeWindowMode(DX.TRUE);
+class Game
+{
+    public void Update()
+    {
+        // 今後のゲームの更新処理 (キャラクターの移動など) をここに追加
+    }
 
-        // Dxlib の初期化
-        DX.DxLib_Init();
-        // 描画先を裏画面に設定
-        DX.SetDrawScreen(DX.DX_SCREEN_BACK);
+    public void Render()
+    {
+        DX.ClearDrawScreen();
+        DX.DrawString(100, 100, "Hello World", DX.GetColor(255, 255, 255));
+        DX.ScreenFlip();
+    }
 
-        // メインループ
-        while (DX.ProcessMessage() == 0) {
-            // 画面をクリア
-            DX.ClearDrawScreen();
-            // 文字を描画
-            DX.DrawString(100, 100, "Hello World", DX.GetColor(255, 255, 255));
-            // 裏画面の内容を表画面に反映
-            DX.ScreenFlip();
+    public void Run()
+    {
+        while (DX.ProcessMessage() == 0)
+        {
+            Update();
+            Render();
         }
+    }
+}
 
-        // Dxlib の終了処理
+static class Program
+{
+    static Program()
+    {
+        DX.ChangeWindowMode(DX.TRUE);
+        DX.DxLib_Init();
+        DX.SetDrawScreen(DX.DX_SCREEN_BACK);
+    }
+
+    static void Main(string[] args)
+    {
+        Game Game = new Game();
+        Game.Run();
+
         DX.DxLib_End();
     }
 }
