@@ -36,7 +36,7 @@ internal static class Constants
     static Constants()
     {
         SCREEN_SIZE = new Vector2(640f, 480f);
-        PLAYER_SIZE = new Vector2(32f, 64f);
+        PLAYER_SIZE = new Vector2(32f, 42f);
         PLAYER_HALF_SIZE = PLAYER_SIZE / 2f;
 
         // --- Asset Loading ---
